@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const cors = require('cors')
 
 PORT = process.env.PORT || 3000
 
@@ -12,6 +13,14 @@ app.use(express.json()) //express middleware
 //database
 require('./config/db')
 
+
+//Cors
+ const corsOptions = {
+    origin: process.env.ALLOWED_CLIENTS.split(',')
+  // ['http://localhost:3000',  'http://localhost:5000',  'http://localhost:3300']
+}
+
+app.use(cors(corsOptions))
 
 //Template engine
 app.set('views', path.join(__dirname, '/views'));
